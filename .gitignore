@@ -2,3 +2,4 @@
 .cache/
 out/
 compile_commands.json
+certs/
