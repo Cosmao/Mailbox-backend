@@ -4,14 +4,14 @@ import ssl
 import paho.mqtt.client as mqtt
 
 # Environment variables
-MQTT_BROKER = os.getenv('MQTT_BROKER', 'localhost')
-MQTT_PORT = int(os.getenv('MQTT_PORT', 8883))
-MQTT_TOPIC = os.getenv('MQTT_TOPIC', 'sensors/#')  # Subscribe to all topics under "sensors/"
+MQTT_BROKER = os.getenv("MQTT_BROKER", "localhost")
+MQTT_PORT = int(os.getenv("MQTT_PORT", 8883))
+MQTT_TOPIC = os.getenv("MQTT_TOPIC", "sensors/#")  # Subscribe to all topics under "sensors/"
 
 # Certificate paths
-CA_CERT = '/certs/ca.crt'
-CLIENT_CERT = '/certs/mqttConsumer.crt'
-CLIENT_KEY = '/certs/mqttConsumer.key'
+CA_CERT = "/certs/ca.crt"
+CLIENT_CERT = "/certs/mqttConsumer.crt"
+CLIENT_KEY = "/certs/mqttConsumer.key"
 
 def on_connect(client, userdata, flags, rc):
     print(f"Connected to MQTT broker with code {rc}")

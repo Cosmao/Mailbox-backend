@@ -6,9 +6,9 @@ services:
       - "8883:8883"
     restart: always
     volumes:
-      - ./certs/ca.crt:/mosquitto/ca.crt:ro
-      - ./certs/server.key:/mosquitto/server.key:ro
-      - ./mosquitto/mosquitto.conf:/mosquitto/config/mosquitto.conf
+      - ./certs/ca.crt:/mosquitto/ca.crt:rw
+      - ./certs/server.key:/mosquitto/server.key:rw
+      - ./mosquitto/mosquitto.conf:/mosquitto/config/mosquitto.conf:rw
 
   mqtt_consumer:
     container_name: mqtt_consumer
@@ -20,11 +20,10 @@ services:
     environment:
       MQTT_BROKER: mosquitto
       MQTT_PORT: 8883
-      MQTT_TOPIC: temp
+      MQTT_TOPIC: mailbox
     restart: always
     volumes:
       - ./certs/ca.crt:/certs/ca.crt:ro
       - ./certs/mqttConsumer.crt:/certs/mqttConsumer.crt:ro
       - ./certs/mqttConsumer.key:/certs/mqttConsumer.key:ro
-      - ./mqtt_consumer/mqtt_consumer.py:/app/mqtt_consumerpy:ro
-      - ./mqtt_consumer/requirements.txt:/app/requirements.txt:ro
+      - ./mqtt_consumer/mqtt_consumer.py:/app/mqtt_consumer.py:ro
