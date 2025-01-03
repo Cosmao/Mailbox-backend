@@ -35,7 +35,7 @@ def timeout_send_message():
         with last_msg_lock:
             time_diff = datetime.now() - last_msg_time
 
-        if time_diff >= timedelta(minutes=ESP_CHECKIN_TIME_IN_HOURS):
+        if time_diff >= timedelta(hours=ESP_CHECKIN_TIME_IN_HOURS):
             webhook = DiscordWebhook(url=DISCORD_URL)
             embed = DiscordEmbed(title="Mailbox", description="Mailbox hasnt checked in!", color="03b2f8")
             webhook.add_embed(embed)
@@ -53,6 +53,8 @@ def decode_message(data):
 
     if "distance" in data:
         value = data.get("distance")
+        desc += value
+        desc += "\n"
         if ESP_STANDARD_DISTANCE_IN_MM * 0.9 <= value <= ESP_STANDARD_DISTANCE_IN_MM * 1.1:
             pass
         else:

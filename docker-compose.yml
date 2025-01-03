@@ -22,6 +22,8 @@ services:
       MQTT_PORT: 8883
       MQTT_TOPIC: home/mailbox
       DISCORD_URL: ${DISCORD_URL}
+      ESP_CHECKIN_TIME_IN_HOURS: 12
+      ESP_STANDARD_DISTANCE_IN_MM: 400
     restart: always
     volumes:
       - ./certs/ca.crt:/certs/ca.crt:ro
