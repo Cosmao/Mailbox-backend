@@ -20,7 +20,7 @@ services:
     environment:
       MQTT_BROKER: mosquitto
       MQTT_PORT: 8883
-      MQTT_TOPIC: mailbox
+      MQTT_TOPIC: home/mailbox
     restart: always
     volumes:
       - ./certs/ca.crt:/certs/ca.crt:ro
