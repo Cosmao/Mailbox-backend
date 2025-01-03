@@ -2,16 +2,20 @@ import os
 import json
 import ssl
 import paho.mqtt.client as mqtt
+from discord_webhook import DiscordWebhook, DiscordEmbed
 
 # Environment variables
 MQTT_BROKER = os.getenv("MQTT_BROKER", "localhost")
 MQTT_PORT = int(os.getenv("MQTT_PORT", 8883))
 MQTT_TOPIC = os.getenv("MQTT_TOPIC", "sensors/#")  # Subscribe to all topics under "sensors/"
+DISCORD_URL = os.getenv("DISCORD_URL", "https://discord.com/api/webhooks/1324779402319499365/9dlNZBCqTj_WXqBqOEAs6Zx0u_L63e2D8BlqYTFGFRQAiKtDzO15aWjxluJWt5nDSWSI")
 
 # Certificate paths
 CA_CERT = "/certs/ca.crt"
 CLIENT_CERT = "/certs/mqttConsumer.crt"
 CLIENT_KEY = "/certs/mqttConsumer.key"
+
+print(f"Starting consumer with topic `{MQTT_TOPIC}`")
 
 def on_connect(client, userdata, flags, rc):
     print(f"Connected to MQTT broker with code {rc}")
@@ -20,6 +24,13 @@ def on_connect(client, userdata, flags, rc):
 def on_message(client, userdata, msg):
     payload = msg.payload.decode()
     print(f"Received `{payload}` from `{msg.topic}` topic")
+
+    webhook = DiscordWebhook(url=DISCORD_URL)
+    embed = DiscordEmbed(title="Mailbox", description="MQTT MESSAGE HAPPENED OMG SEND ALERT",color="03b2f8")
+    webhook.add_embed(embed)
+    response=webhook.execute()
+    print(response)
+
 
     # Parse the JSON payload
     try:
