@@ -8,7 +8,10 @@ from discord_webhook import DiscordWebhook, DiscordEmbed
 MQTT_BROKER = os.getenv("MQTT_BROKER", "localhost")
 MQTT_PORT = int(os.getenv("MQTT_PORT", 8883))
 MQTT_TOPIC = os.getenv("MQTT_TOPIC", "sensors/#")  # Subscribe to all topics under "sensors/"
-DISCORD_URL = os.getenv("DISCORD_URL", "https://discord.com/api/webhooks/1324779402319499365/9dlNZBCqTj_WXqBqOEAs6Zx0u_L63e2D8BlqYTFGFRQAiKtDzO15aWjxluJWt5nDSWSI")
+DISCORD_URL = os.getenv("DISCORD_URL", "")
+
+if not DISCORD_URL:
+    exit
 
 # Certificate paths
 CA_CERT = "/certs/ca.crt"
