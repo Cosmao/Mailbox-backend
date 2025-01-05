@@ -54,9 +54,9 @@ def decode_message(data):
     if "distance" in data:
         value = data.get("distance")
         if ESP_STANDARD_DISTANCE_IN_MM * 0.9 <= value <= ESP_STANDARD_DISTANCE_IN_MM * 1.1:
-            desc += "Probably not letter inside!\nDist: `{value}`"
+            desc += "Probably not letter inside!\nDist: `{}`".format(value)
         else:
-            desc += "Most likely letter inside!\nDist: `{value}`"
+            desc += "Most likely letter inside!\nDist: `{}`".format(value)
 
     if desc:
         webhook = DiscordWebhook(url=DISCORD_URL)
