@@ -56,9 +56,9 @@ def decode_message(data):
         desc += value
         desc += "\n"
         if ESP_STANDARD_DISTANCE_IN_MM * 0.9 <= value <= ESP_STANDARD_DISTANCE_IN_MM * 1.1:
-            pass
+            desc += "Probably not letter inside!\nDist: `{value}`"
         else:
-            desc += "Most likely letter inside!"
+            desc += "Most likely letter inside!\nDist: `{value}`"
 
     if desc:
         webhook = DiscordWebhook(url=DISCORD_URL)
