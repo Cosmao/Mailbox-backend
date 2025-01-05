@@ -1,7 +1,7 @@
 services:
-  mosquitto:
+  mailbox-mosquitto:
     image: eclipse-mosquitto:latest
-    container_name: mosquitto
+    container_name: mailbox-mosquitto
     ports:
       - "8883:8883"
     restart: always
@@ -16,9 +16,9 @@ services:
       context: ./mqtt_consumer/
       dockerfile: Dockerfile
     depends_on:
-      - mosquitto
+      - mailbox-mosquitto
     environment:
-      MQTT_BROKER: mosquitto
+      MQTT_BROKER: mailbox-mosquitto 
       MQTT_PORT: 8883
       MQTT_TOPIC: home/mailbox
       DISCORD_URL: ${DISCORD_URL}
