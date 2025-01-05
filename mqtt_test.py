@@ -13,6 +13,10 @@ CA_CERT = "./certs/ca.crt"
 CLIENT_CERT = "./certs/mqttConsumer.crt"
 CLIENT_KEY = "./certs/mqttConsumer.key"
 
+print(CA_CERT)
+print(CLIENT_CERT)
+print(CLIENT_KEY)
+
 def on_connect(client, userdata, flags, rc):
     print(f"Connected to MQTT broker with code {rc}")
     client.subscribe(MQTT_TOPIC)
