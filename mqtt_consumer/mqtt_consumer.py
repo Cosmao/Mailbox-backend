@@ -53,7 +53,7 @@ def decode_message(data):
 
     if "distance" in data:
         value = data.get("distance")
-        if ESP_STANDARD_DISTANCE_IN_MM * 0.9 <= value <= ESP_STANDARD_DISTANCE_IN_MM * 1.1:
+        if ESP_STANDARD_DISTANCE_IN_MM * 0.95 <= value <= ESP_STANDARD_DISTANCE_IN_MM * 1.05:
             desc += "Probably not letter inside!\nDist: `{}`".format(value)
         else:
             desc += "Most likely letter inside!\nDist: `{}`".format(value)

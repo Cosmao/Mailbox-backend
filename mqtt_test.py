@@ -4,7 +4,7 @@ import ssl
 import paho.mqtt.client as mqtt
 
 # Environment variables
-MQTT_BROKER = os.getenv("MQTT_BROKER", "localhost")
+MQTT_BROKER = os.getenv("MQTT_BROKER", "pajjen.local")
 MQTT_PORT = int(os.getenv("MQTT_PORT", 8883))
 MQTT_TOPIC = os.getenv("MQTT_TOPIC", "home/mailbox")  # Subscribe to all topics under "sensors/"
 
