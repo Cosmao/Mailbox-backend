@@ -6,6 +6,7 @@ import threading
 from datetime import datetime, timedelta
 import paho.mqtt.client as mqtt
 from discord_webhook import DiscordWebhook, DiscordEmbed
+from collections import Counter
 
 # Environment variables
 MQTT_BROKER = os.getenv("MQTT_BROKER", "localhost")
@@ -44,6 +45,11 @@ def timeout_send_message():
             with last_msg_lock:
                 last_msg_time = datetime.now()
 
+def get_distance(data):
+    distance = data["distance"]
+    most_common = Counter(distance).most_common(1)[0][0]
+    return most_common
+
 def decode_message(data):
     desc = ""
     if "lid" in data:
@@ -52,7 +58,7 @@ def decode_message(data):
             desc += "Lid is open!"
 
     if "distance" in data:
-        value = data.get("distance")
+        value = get_distance(data["distance"])
         if ESP_STANDARD_DISTANCE_IN_MM * 0.95 <= value <= ESP_STANDARD_DISTANCE_IN_MM * 1.05:
             desc += "Probably not letter inside!\nDist: `{}`".format(value)
         else:
