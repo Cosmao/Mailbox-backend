@@ -46,7 +46,8 @@ def timeout_send_message():
                 last_msg_time = datetime.now()
 
 def get_distance(data):
-    most_common = Counter(data).most_common(1)[0][0]
+    values = list(data['distance'].values())
+    most_common = Counter(values).most_common(1)[0][0]
     return int(most_common)
 
 def decode_message(data):
@@ -57,7 +58,7 @@ def decode_message(data):
             desc += "Lid is open!"
 
     if "distance" in data:
-        value = get_distance(data["distance"])
+        value = get_distance(data)
         if ESP_STANDARD_DISTANCE_IN_MM * 0.95 <= value <= ESP_STANDARD_DISTANCE_IN_MM * 1.05:
             desc += "Probably not letter inside!\nDist: `{}`".format(value)
         else:
