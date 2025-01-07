@@ -2,6 +2,7 @@ import os
 import json
 import ssl
 import paho.mqtt.client as mqtt
+from datetime import datetime
 
 # Environment variables
 MQTT_BROKER = os.getenv("MQTT_BROKER", "pajjen.local")
@@ -19,7 +20,8 @@ def on_connect(client, userdata, flags, rc):
 
 def on_message(client, userdata, msg):
     payload = msg.payload.decode()
-    print(f"Received `{payload}` from `{msg.topic}` topic")
+    current_time = datetime.now().strftime("%H:%M")
+    print(f"`{current_time}` Received `{payload}` from `{msg.topic}` topic")
 
     # Parse the JSON payload
     try:
