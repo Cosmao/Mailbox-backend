@@ -46,8 +46,7 @@ def timeout_send_message():
                 last_msg_time = datetime.now()
 
 def get_distance(data):
-    distance = data["distance"]
-    most_common = Counter(distance).most_common(1)[0][0]
+    most_common = Counter(data).most_common(1)[0][0]
     return most_common
 
 def decode_message(data):
