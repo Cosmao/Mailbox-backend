@@ -56,6 +56,8 @@ def decode_message(data):
         value = data.get("lid")
         if value == "open":
             desc += "Lid is open!"
+        elif value == "closed":
+            desc += "Lid was opened and closed! Check for mail!"
 
     if "distance" in data:
         value = get_distance(data)
