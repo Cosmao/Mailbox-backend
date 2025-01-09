@@ -21,7 +21,7 @@ def on_connect(client, userdata, flags, rc):
 def on_message(client, userdata, msg):
     payload = msg.payload.decode()
     current_time = datetime.now().strftime("%H:%M")
-    print(f"`{current_time}` Received `{payload}` from `{msg.topic}` topic")
+    print(f"{current_time}: Received {payload} from {msg.topic} topic")
 
     # Parse the JSON payload
     try:
