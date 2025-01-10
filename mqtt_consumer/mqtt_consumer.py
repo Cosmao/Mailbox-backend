@@ -37,11 +37,7 @@ def timeout_send_message():
             time_diff = datetime.now() - last_msg_time
 
         if time_diff >= timedelta(hours=ESP_CHECKIN_TIME_IN_HOURS):
-            webhook = DiscordWebhook(url=DISCORD_URL)
-            embed = DiscordEmbed(title="Mailbox", description="Mailbox hasnt checked in!", color="03b2f8")
-            webhook.add_embed(embed)
-            response = webhook.execute()
-            print(response)
+            send_discord_message("Mailbox hasnt checked in!")
             with last_msg_lock:
                 last_msg_time = datetime.now()
 
@@ -49,6 +45,13 @@ def get_distance(data):
     values = list(data['distance'].values())
     most_common = Counter(values).most_common(1)[0][0]
     return int(most_common)
+
+def send_discord_message(string):
+        webhook = DiscordWebhook(url=DISCORD_URL)
+        embed = DiscordEmbed(title="Mailbox", description=string, color="03b2f8")
+        webhook.add_embed(embed)
+        response = webhook.execute()
+        print(response)
 
 def decode_message(data):
     desc = ""
@@ -67,11 +70,7 @@ def decode_message(data):
             desc += "Most likely letter inside!\nDist: `{}`".format(value)
 
     if desc:
-        webhook = DiscordWebhook(url=DISCORD_URL)
-        embed = DiscordEmbed(title="Mailbox", description=desc)
-        webhook.add_embed(embed)
-        response = webhook.execute()
-        print(response)
+        send_discord_message(desc)
 
 def on_connect(client, userdata, flags, rc):
     print(f"Connected to MQTT broker with code {rc}")
