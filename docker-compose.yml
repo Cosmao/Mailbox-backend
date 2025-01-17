@@ -4,7 +4,7 @@ services:
     container_name: mailbox-mosquitto
     ports:
       - "8883:8883"
-    restart: always
+    restart: on-failure
     volumes:
       - ./certs/ca.crt:/mosquitto/ca.crt:rw
       - ./certs/server.key:/mosquitto/server.key:rw
@@ -24,7 +24,7 @@ services:
       DISCORD_URL: ${DISCORD_URL}
       ESP_CHECKIN_TIME_IN_HOURS: 2
       ESP_STANDARD_DISTANCE_IN_MM: 110
-    restart: always
+    restart: on-failure
     volumes:
       - ./certs/ca.crt:/certs/ca.crt:ro
       - ./certs/mqttConsumer.crt:/certs/mqttConsumer.crt:ro
